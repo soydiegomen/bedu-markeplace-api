@@ -33,13 +33,60 @@ class Orders extends Controller
     public function save(Request $request)
     {
         $data = $request->all();
+        $order = null;
 
-        DB::beginTransaction();
         try
         {
+            //Creamos la transacción para asegurar que solo cuando todos los elementos sean validos, se guarde la info en la BD
+            DB::beginTransaction();
 
             //Primero se crea la orden, para tener su id y poderlo asociar con los productos de la orden
             $order = Order::create([]);
+
+            //Si la orden tiene asociados productos, estos se deben almacenar
+            if(isset($data['products'])){
+                $products = $data['products'];
+                foreach($products as $product){
+
+                    //Validar que el producto tenga los campos mínimos y que estos tengan el formato correcto
+                    $validator = $this->validateProduct($product);
+                    if ($validator->fails()) {
+                        return response($validator->errors(), 400);
+                    }
+
+                    $product['order_id'] = $order->id;
+                    OrderProduct::create($product);
+                }
+            }
+
+            //Si todo salio bien en el guardado se debe hacer commit en la transacción
+            DB::commit();
+        }
+        catch(\Exception $e)
+        {
+            Log::error($e->getMessage());
+            DB::rollback();
+            return response(['error' => $e->getMessage()], 400);
+        }
+
+        return $order;
+    }
+
+    public function addProducts(Request $request, $order_id)
+    {
+        $data = $request->all();
+
+        $order = Order::find($order_id);
+
+        //Validar que la orden exista
+        if(!$order){
+            return response(['error' => 'La orden ' . $order_id .' no existe'], 400);
+        }
+
+        try
+        {
+            //Creamos la transacción para asegurar que solo cuando todos los elementos sean validos, se guarde la info en la BD
+            DB::beginTransaction();
 
             //Si se esta creando la orden con productos, se deben almacenar estos productos
             if(isset($data['products'])){
@@ -52,7 +99,7 @@ class Orders extends Controller
                         return response($validator->errors(), 400);
                     }
 
-                    $product['order_id'] = $order->id;
+                    $product['order_id'] = $order_id;
                     OrderProduct::create($product);
                 }
             }

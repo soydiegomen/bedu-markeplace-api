@@ -23,7 +23,5 @@ Route::group(['prefix' => 'products'], function () use ($router) {
 Route::group(['prefix' => 'orders'], function () use ($router) {
     $router->get('/', 'App\Http\Controllers\Orders@list');
     $router->post('/', 'App\Http\Controllers\Orders@save');
-    Route::group(['prefix' => 'products'], function () use ($router) {
-        $router->get('/', 'App\Http\Controllers\Orders@listOrderProducts');
-    });
+    $router->post('/{order_id}/products', 'App\Http\Controllers\Orders@addProducts');
 });
