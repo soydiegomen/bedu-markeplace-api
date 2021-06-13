@@ -8,14 +8,13 @@ FLUSH PRIVILEGES;
 #Crea la tabla de productos
 CREATE TABLE `products` (
   `product_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
+  `name` varchar(50) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `type` enum('GENERAL','COURSE') NOT NULL DEFAULT 'GENERAL',
-  `SKU` varchar(50) DEFAULT NULL,
+  `SKU` varchar(50) NOT NULL,
   `sale_price` decimal(13,2) NOT NULL,
   `list_price` decimal(13,2) NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  `fecha_fin` datetime NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
