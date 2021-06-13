@@ -10,8 +10,14 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'status',
-        'payment_date',
+        'name',
+        'description',
+        'type',
+        'SKU',
+        'sale_price',
+        'list_price',
+        'image_url',
+        'fecha_fin',
         'is_active'
     ];
 }

@@ -12,14 +12,8 @@ class Order extends Model
     protected $primaryKey = 'order_id';
 
     protected $fillable = [
-        'name',
-        'description',
-        'type',
-        'SKU',
-        'sale_price',
-        'list_price',
-        'image_url',
-        'fecha_fin',
+        'status',
+        'payment_date',
         'is_active'
     ];
 }
