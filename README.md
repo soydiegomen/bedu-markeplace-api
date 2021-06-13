@@ -60,9 +60,9 @@ Link de descarga https://www.postman.com/
 2. En postman importar la colección de prueba
 https://www.getpostman.com/collections/e7269855a265c250d699
 
-3. Agregar un nuevo ambiente de postman, para resolver las variables de la url
+3. Agregar un nuevo ambiente de postman, para resolver las variables de la url  
 host => 127.0.0.1:8000  
-httP => http
+http => http
 
 2. Utilizar los request  
  
@@ -86,3 +86,22 @@ Agrega nuevos productos a la orden
 * **Orders/Pay order**  
 Es un mock del servicio que registrará el pago de una orde, por ahora solo actualiza su estatus a pagada.  
 
+
+## Documentación
+Antes de comenzar a desarrollar el proyecto, hice un análisis de las tareas que tenía que completar
+- Crear el ER
+- Levantar el boilerplate de Laravel
+- Crear las tablas que utilizará el proyecto
+- Hacer el CRUD de los modelos
+	- Crear Modelos
+	- Crear Controllers
+	- Crear productos
+		- Validar los inputs
+	- Listar productos
+	- Crear una odc (puede o no traer productos)
+	- Agregar productos a la odc
+- Pagar una odc
+	- Cambia su estatus a pagada
+
+### Diagrama ER del proyecto
+https://drive.google.com/file/d/1RQNV-tGi30DJmRrBiDvgSbnY8TVrOmTq/view?usp=sharing 
