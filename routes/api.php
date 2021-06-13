@@ -16,5 +16,6 @@ use App\Models\Product;
 */
 
 Route::group(['prefix' => 'products'], function () use ($router) {
-    $router->get('/', 'App\Http\Controllers\Products@index');
+    $router->get('/', 'App\Http\Controllers\Products@list');
+    $router->post('/', 'App\Http\Controllers\Products@save');
 });

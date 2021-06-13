@@ -8,10 +8,14 @@ use \Datetime;
 
 class Products extends Controller
 {
-    //
-    public function index()
+    public function list()
     {
-        $result = ['result'=> "Hellow world!"];
-        return $result;
+        return Product::all();
+    }
+
+    public function save(Request $request)
+    {
+        $data = $request->all();
+        return Product::create($data);
     }
 }
