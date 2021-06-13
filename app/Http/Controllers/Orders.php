@@ -55,7 +55,7 @@ class Orders extends Controller
                         return response($validator->errors(), 400);
                     }
 
-                    $product['order_id'] = $order->id;
+                    $product['order_id'] = $order->order_id;
                     OrderProduct::create($product);
                 }
             }
