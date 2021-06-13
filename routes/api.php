@@ -19,3 +19,11 @@ Route::group(['prefix' => 'products'], function () use ($router) {
     $router->get('/', 'App\Http\Controllers\Products@list');
     $router->post('/', 'App\Http\Controllers\Products@save');
 });
+
+Route::group(['prefix' => 'orders'], function () use ($router) {
+    $router->get('/', 'App\Http\Controllers\Orders@list');
+    $router->post('/', 'App\Http\Controllers\Orders@save');
+    Route::group(['prefix' => 'products'], function () use ($router) {
+        $router->get('/', 'App\Http\Controllers\Orders@listOrderProducts');
+    });
+});
