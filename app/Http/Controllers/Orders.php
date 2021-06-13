@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use \Datetime;
 use App\Models\Order;
 use App\Models\OrderProduct;
 
@@ -115,6 +116,26 @@ class Orders extends Controller
         }
 
         return $order;
+    }
+
+    public function pay(Request $request, $order_id)
+    {
+        $order = Order::find($order_id);
+
+        //Validar que la orden exista
+        if(!$order){
+            return response(['error' => 'La orden ' . $order_id .' no existe'], 400);
+        }
+
+        //TODO: Definir las reglas y validaciones de un pago
+        //TODO: ES posible que se necesite recibir más información para registrar el pago [método de pago, dirección de entrega, etc]
+        //Por ahora se esta considerando que al haberse creado la orden en un paso anterior, en este solo se requiere actualizar el estatus a pagado
+
+        $order->status = 'PAID';
+        $order->payment_date = new DateTime();
+        $order->update();
+
+        return ['result' => 'La orden de compra fue pagada satisfactoriamente.'];
     }
 
     private function validateProduct($jsonRequest)
