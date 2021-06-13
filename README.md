@@ -1,62 +1,88 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# API Bedu Marketplace 
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+API con Laravel, que permite hacer una prueba de concepto de un Marketplace para Bedu
 
-## About Laravel
+## Información técnica
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requisitos para su setup (local y producción)
+* PHP += 7.3
+* Composer
+* Npm
+* Mysql
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Notas generales
+El proyecto esta basado en el boilerplate de Laravel. Se recomienda revisar la documentación de este proyecto, para conocer los detalles generales de su implementación e instalación. 
+https://laravel-boilerplate.com/index.html 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Guía de setup 
 
-## Learning Laravel
+1. Clone el proyecto del repositorio de Github.
+Para un ambiente de desarrollo utiliza la rama de development y la rama main para producción.
+2. Instalar las librerías de php que requiere utilizando Composer
+$ composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. Instalar las dependencias de NPM
+$ npm install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+5. Configurar la conexión a la BD en el archivo .env
+En el proyecto se encuentra un archivo de ejemplo .env.example renombrelo a .env y agregue la información de conexión a la BD
 
-## Laravel Sponsors
+6. Genere las llaves que utiliza Laravel para encriptar  
+$ php artisan key:generate
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+7. Ejecute las migraciones de la base de datos  
+$ php artisan migrate
 
-### Premium Partners
+8. Poble la BD con la información base del proyecto  
+$ php artisan db:seed  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+9. Ejecute el comando run de npm  
+Este comando compila archivos que necesita el proyecto para las interfaces.
+$ npm run production
 
-## Contributing
+10.  Ejecute el comando de laravel para ligan el public storage para cargar los avatars de los usuarios  
+$ php artisan storage:link
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+11. Ejecutar el script sql que se encuentra en el directorio:  
+DATA/dump_base_project.sql
 
-## Code of Conduct
+12. Levantar el servidor web 
+$ php artisan serve
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Pruebas de la solución
+Posterior a haber levantado el ambiente local
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Abrir la aplicación de postman
+Link de descarga https://www.postman.com/ 
 
-## License
+2. En postman importar la colección de prueba
+https://www.getpostman.com/collections/e7269855a265c250d699
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. Agregar un nuevo ambiente de postman, para resolver las variables de la url
+host => 127.0.0.1:8000  
+httP => http
+
+2. Utilizar los request  
+ 
+## Servicios del API
+
+* **Products/Get products**  
+Lista los productos registradas en el sistema  
+
+* **Products/Create product**  
+Crea un nuevo producto
+
+* **Orders/Get orders**  
+Lista las ordenes registradas en el sistema  
+
+* **Orders/Create order**  
+Crea una nueva orde (es posible enviar los productos que la integran)  
+
+* **Orders/Add products**  
+Agrega nuevos productos a la orden  
+
+* **Orders/Pay order**  
+Es un mock del servicio que registrará el pago de una orde, por ahora solo actualiza su estatus a pagada.  
+
